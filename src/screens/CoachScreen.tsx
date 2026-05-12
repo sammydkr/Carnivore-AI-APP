@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { aiDisclaimer } from '../shared/disclaimer';
 import { tokens } from '../shared/tokens';
 
 export function CoachScreen() {
@@ -14,10 +15,7 @@ export function CoachScreen() {
       </Text>
 
       <View style={styles.chatBubble}>
-        <Text style={styles.chatText}>
-          I can help with general wellness education, but I do not provide
-          medical advice, diagnosis, treatment, or emergency support.
-        </Text>
+        <Text style={styles.chatText}>{aiDisclaimer}</Text>
       </View>
 
       <View style={styles.serviceCard}>

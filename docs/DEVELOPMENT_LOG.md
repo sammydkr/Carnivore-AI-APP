@@ -130,3 +130,23 @@ Updated the product direction around the Ketovore AI identity:
 ### Next Step
 
 Phone-test the Scan flow in Expo Go, then commit and push if it works.
+
+## 2026-05-12: Disclaimer Text
+
+### What We Did
+
+Created final shared disclaimer text for the app.
+
+The disclaimer now states:
+
+- Ketovore AI provides general wellness education only
+- Ketovore AI does not provide medical advice
+- Ketovore AI does not diagnose, treat, cure, prevent disease, or provide emergency support
+- Users should speak with a qualified health professional before medical decisions
+- AI responses are educational estimates and may be incomplete or inaccurate
+
+### Where It Appears
+
+- Short disclaimer appears in the meal analysis result
+- Full disclaimer appears in Settings
+- AI disclaimer appears in the AI Coach placeholder

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { aiDisclaimer, fullDisclaimer } from '../shared/disclaimer';
 import { tokens } from '../shared/tokens';
 
 export function SettingsScreen() {
@@ -14,11 +15,8 @@ export function SettingsScreen() {
 
       <View style={styles.disclaimerBox}>
         <Text style={styles.disclaimerTitle}>Health disclaimer</Text>
-        <Text style={styles.disclaimerText}>
-          Ketovore AI provides general wellness education only. It does not
-          diagnose, treat, cure, or prevent disease. Speak with a qualified
-          professional before making medical decisions.
-        </Text>
+        <Text style={styles.disclaimerText}>{fullDisclaimer}</Text>
+        <Text style={styles.aiDisclaimerText}>{aiDisclaimer}</Text>
       </View>
 
       <View style={styles.serviceBox}>
@@ -65,6 +63,12 @@ const styles = StyleSheet.create({
     fontSize: tokens.typography.body,
     lineHeight: 22,
     marginTop: tokens.spacing.xs,
+  },
+  aiDisclaimerText: {
+    color: tokens.colors.primarySoft,
+    fontSize: tokens.typography.caption,
+    lineHeight: 18,
+    marginTop: tokens.spacing.md,
   },
   serviceBox: {
     backgroundColor: tokens.colors.surfaceMuted,

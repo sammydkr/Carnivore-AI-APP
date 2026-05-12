@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { createMockMealAnalysis } from '../shared/mealAnalysis';
+import { shortDisclaimer } from '../shared/disclaimer';
 import { tokens } from '../shared/tokens';
 import type { MealAnalysisResult } from '../shared/types';
 
@@ -155,8 +156,7 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
 
       <Text style={styles.tipText}>{analysis.wholeFoodTip}</Text>
       <Text style={styles.disclaimerText}>
-        Estimate only. {analysis.ketoneNote} This is general wellness education,
-        not medical advice.
+        {analysis.ketoneNote} {shortDisclaimer}
       </Text>
     </View>
   );
