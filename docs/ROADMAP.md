@@ -1,8 +1,20 @@
 # Ketovore AI Roadmap
 
+## Current Direction
+
+Build the app gradually. Keep the first version simple, working on a phone, and easy to understand.
+
+The current priority is:
+
+- Use the Ketovore AI logo
+- Build a clean white/blue home screen
+- Add a Scan Your Meal flow
+- Let users add a meal photo and type what they ate
+- Show a mock keto/carnivore-friendly analysis
+
 ## MVP 0: Planning And Setup
 
-Completed planning decisions:
+Completed:
 
 - MVP feature list defined
 - Technology stack chosen
@@ -15,45 +27,66 @@ Still open:
 
 ## MVP 1: App Foundation
 
-Current focus:
+Completed:
 
-- Create Expo mobile app project
-- Create basic app navigation
-- Create home screen based on design
+- Expo mobile app project created
+- Basic navigation created
 
-## MVP 2: User And Profile
+In progress:
 
-Planned later:
+- Home screen based on Ketovore AI logo/design
+- Mock meal scan flow
 
-- Register / login
-- Profile setup
-- Store weight, goal, diet style, and fasting preference
+## MVP 2: Meal Scan MVP
 
-## MVP 3: Tracking
+Planned:
 
-Planned later:
+- Choose or take a meal photo
+- Enter meal details manually
+- Show estimated calories and macros
+- Show keto/carnivore-friendly verdict
+- Warn about high-carb foods, junk foods, sugar, and seed oils
+- Remind users that results are estimates and general wellness education
+
+## MVP 3: Tracker
+
+Planned:
 
 - Basic food tracker
 - Daily macro summary
 - Weight tracker
 - Fasting timer
+- Ketone education notes
 
 ## MVP 4: AI Coach Lite
 
-Planned later:
+Planned:
 
 - Basic AI chat screen
-- Safe AI prompt
+- Safe AI system prompt
 - General wellness guidance only
-- No medical diagnosis or treatment claims
+- No diagnosis, treatment, or disease-cure claims
+- Subscription idea: $5.99/month after core MVP works
 
 ## MVP 5: App Store Prep
 
-Planned later:
+Planned:
 
 - Privacy policy
 - Terms and disclaimer
 - Account deletion
 - App screenshots
 - TestFlight build
+- App Store health and privacy review preparation
+
+## Later Ecosystem Features
+
+- Ingredients hunter
+- Seed oil warnings
+- 7-day meal plans
+- 1-on-1 coaching at $299/month
+- Restaurant finder
+- Community
+- Local rancher finder
+- Wearable integrations
 

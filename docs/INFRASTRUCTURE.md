@@ -1,40 +1,86 @@
 # Infrastructure Plan
 
-## Beginner-Friendly Stack
+## Current Phase: Expo-Only MVP
 
-The first version avoids heavy backend infrastructure.
+The app is currently a simple Expo + React Native + TypeScript project.
 
-Recommended MVP stack:
+This phase does not include:
+
+- Backend server
+- Database
+- Real AI API calls
+- Authentication
+- Payments
+
+This keeps development beginner-friendly and makes the app easy to test in Expo Go.
+
+## Current Stack
 
 - React Native with Expo
 - TypeScript
-- Supabase later for auth and database
-- OpenAI API later for AI coach
-- RevenueCat later for subscriptions
-- Expo EAS Build later for app builds
-- GitHub for project management and code
+- Expo ImagePicker
+- Local mock meal analysis
+- GitHub for code and planning
 
-## Why This Stack
+## Current Data Flow
 
-Expo keeps the mobile app easier to build and test from Windows.
+User opens app.
 
-Supabase can handle authentication and database features without building a custom backend first.
+User taps `Scan Your Meal`.
 
-OpenAI API can power the first AI coach through a secure server-side function later.
+User selects or takes a meal photo.
 
-RevenueCat can simplify subscriptions later.
+User types meal details, for example:
 
-## Current Local App
+```text
+400g steak, 20g butter, 8 eggs
+```
 
-The current local app is only the foundation.
+The app creates a local mock estimate:
 
-It does not yet include:
+- calories
+- protein
+- fat
+- carbs
+- keto/carnivore-friendly verdict
+- whole food tip
+- ketone note
 
-- Login
-- Database
-- AI
-- Payments
-- Navigation
+## Future Backend / AI Phase
 
-Those will be added one milestone at a time.
+When the mock flow is working well, add a secure server-side function or backend.
+
+Future backend responsibilities:
+
+- Protect OpenAI API keys
+- Analyze meal photo and typed details
+- Return structured macro and keto/carnivore results
+- Save user meal history
+- Save user profile and goals
+- Enforce safety rules
+
+Future AI approach:
+
+- OpenAI image input for meal photos
+- Structured output for predictable JSON results
+- Server-side validation before saving or showing results
+
+## Future Payments
+
+RevenueCat is planned later for:
+
+- AI Coach subscription
+- Subscription entitlement checks
+- Paywall experiments
+
+## Future App Store Path
+
+Expo EAS Build is planned later for:
+
+- iOS builds
+- Android builds
+- TestFlight
+- App Store submission support
+
+Apple privacy and health-review requirements must be handled before App Store submission.
 

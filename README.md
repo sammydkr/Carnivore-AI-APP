@@ -1,50 +1,55 @@
 # Ketovore AI
 
-Ketovore AI is an early-stage mobile wellness app for people following ketogenic, carnivore, and low-carb eating styles.
+**AI Meets Real Food.**
 
-The first version is intentionally small. The goal is to build a clean beginner-friendly MVP before adding advanced features.
+Ketovore AI is an early-stage mobile wellness app for people following ketogenic, carnivore, ketovore, and low-carb eating styles.
 
-## Current MVP Goal
+The first version is intentionally simple. The app starts with a meal photo/manual meal-details flow, then shows an estimated keto/carnivore-friendly analysis. Real AI, backend storage, subscriptions, community, and restaurant features will come later.
 
+## Current MVP Focus
+
+- Home screen with Ketovore AI branding and logo
+- Scan Your Meal flow
+- Meal photo selection or camera capture
+- Manual meal details, such as `400g steak, 20g butter, 8 eggs`
+- Mock macro estimate and keto/carnivore verdict
+- Tracker, AI Coach, and Settings placeholder screens
+- Health disclaimer and safety language
+
+## Planned Later
+
+- Real OpenAI meal image and text analysis
 - User registration and login
-- Profile setup
-- Basic food tracking
-- Daily macro summary
-- Weight tracking
+- Saved meal history
 - Fasting timer
 - Basic AI coach
 - Health disclaimer
 - Settings page
-- Photo food recognition and tell customer macros and calories
-
-## Not In The First MVP
-
-- Community
-- Restaurant finder
-- Rancher finder
-- Barcode scanner for a supermarket
-- Photo food recognition
-- Ingredients hunter
+- Weight tracking
+- Ketone education
+- Ingredients and seed-oil warnings
+- Barcode scanner for supermarket products
+- Photo food recognition with calories and macros
+- Ketone tracker with daily carb education
+- AI Coach subscription at $5.99/month
+- 1-on-1 coaching at $299/month
+- 7-day meal plans
+- Community and restaurant finder
+- Local rancher finder
 - Wearable integration
-- 1-on-1 coaching
 - Advanced vitamin engine
-- Keton tracker Max 50 Gr Carbs a day 
 
 ## Technology Stack
 
 - Mobile app: React Native with Expo
 - Language: TypeScript
-- Future database/auth: Supabase
+- Photo picker: Expo ImagePicker
+- Current data: local mock data only
 - Future AI: OpenAI API through a server-side function
+- Future database/auth: Supabase or Node/PostgreSQL backend
 - Future payments: RevenueCat
 - Future app builds: Expo EAS Build
 - Repository: GitHub
-
-## Current Project Status
-
-The first Expo TypeScript app has been created.
-
-The current app shows a simple branded welcome screen for Ketovore AI.
 
 ## Local Development
 
@@ -57,7 +62,7 @@ npm.cmd install
 Start the Expo development server:
 
 ```powershell
-npx.cmd expo start
+npx.cmd expo start --tunnel
 ```
 
 Run TypeScript check:
@@ -76,5 +81,5 @@ npx.cmd expo-doctor
 
 Ketovore AI provides general wellness education only.
 
-It does not provide medical advice, diagnosis, treatment, or emergency support. Users should speak with a qualified health professional before making medical decisions.
+It does not provide medical advice, diagnosis, treatment, disease prevention, emergency support, or disease-cure claims. Users should speak with a qualified health professional before making medical decisions.
 

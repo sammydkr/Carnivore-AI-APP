@@ -94,3 +94,39 @@ After that, continue with:
 - AI Coach screen placeholder
 - Settings screen placeholder
 
+## 2026-05-12
+
+### What We Planned
+
+Updated the product direction around the Ketovore AI identity:
+
+- Use the official Ketovore AI logo
+- Keep the app white and blue
+- Focus first on a simple Scan Your Meal flow
+- Use mock meal analysis before real AI
+- Keep health claims safe and educational
+
+### What This Version Adds
+
+- Logo asset added to the app
+- Home screen redesigned around `AI Meets Real Food.`
+- New Scan screen added
+- Users can choose or take a meal photo
+- Users can type meal details like `400g steak, 20g butter, 8 eggs`
+- App shows local estimated calories and macros
+- App shows whether the meal looks keto/carnivore-friendly
+- App shows safety language that results are estimates and general wellness education
+
+### What We Are Not Adding Yet
+
+- Real OpenAI calls
+- Backend server
+- Database
+- User login
+- Payments
+- Community
+- Restaurant finder
+
+### Next Step
+
+Phone-test the Scan flow in Expo Go, then commit and push if it works.
