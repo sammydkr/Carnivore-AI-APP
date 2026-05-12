@@ -3,6 +3,7 @@ export type Screen = 'home' | 'scan' | 'tracker' | 'coach' | 'settings';
 export interface MealAnalysisResult {
   verdict: string;
   score: number;
+  scoreDisplay: string;
   scoreLabel: string;
   calories: number;
   protein: number;

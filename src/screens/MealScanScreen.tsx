@@ -144,7 +144,7 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
           <Text style={styles.analysisMessage}>{analysis.message}</Text>
         </View>
         <View style={styles.scoreBadge}>
-          <Text style={styles.scoreValue}>{analysis.score}</Text>
+          <Text style={styles.scoreValue}>{analysis.scoreDisplay}</Text>
           <Text style={styles.scoreLabel}>{analysis.scoreLabel}</Text>
         </View>
       </View>
@@ -157,11 +157,11 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
       </View>
 
       <ResultSection
-        title="Foods to avoid"
+        title="Dirty 30 ingredients to avoid"
         body={
           analysis.avoidFoods.length > 0
             ? `Review these items: ${analysis.avoidFoods.join(', ')}`
-            : 'No obvious sugar, high-carb starch, or seed-oil keywords were found in this entry.'
+            : 'No Dirty 30 ingredients or obvious high-carb starches were found in this entry.'
         }
       />
 
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 92,
     padding: tokens.spacing.sm,
-    width: 104,
+    width: 112,
   },
   scoreValue: {
     color: tokens.colors.primary,

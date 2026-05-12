@@ -160,10 +160,10 @@ Improved the mock meal analysis result so users can understand the result faster
 The result now shows:
 
 - Meal verdict
-- Keto/carnivore score
+- Keto/carnivore score as a simple `8/10` style label
 - Estimated calories
 - Estimated protein, fat, and carbs
-- Foods to avoid section
+- Dirty 30 ingredients to avoid section
 - Whole food recommendation
 - Ketone education note
 - Safety disclaimer

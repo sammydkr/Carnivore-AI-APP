@@ -14,24 +14,66 @@ const emptyEstimate: MacroEstimate = {
   carbs: 0,
 };
 
-const avoidKeywords = [
-  'bread',
-  'rice',
-  'pasta',
-  'sugar',
-  'fries',
-  'potato',
-  'canola',
-  'soybean oil',
-  'seed oil',
+const dirtyThirtyIngredients = [
+  {
+    label: 'High-fructose corn syrup',
+    keywords: ['high-fructose corn syrup', 'hfcs'],
+  },
+  { label: 'Maltodextrin', keywords: ['maltodextrin'] },
+  { label: 'GMOs', keywords: ['gmo', 'gmos', 'genetically modified'] },
+  { label: 'Sugar', keywords: ['sugar'] },
+  { label: 'Dextrose', keywords: ['dextrose'] },
+  { label: 'Cornstarch', keywords: ['cornstarch', 'corn starch'] },
+  { label: 'Titanium dioxide', keywords: ['titanium dioxide'] },
+  {
+    label: 'Artificial sweeteners',
+    keywords: ['artificial sweetener', 'aspartame', 'sucralose', 'acesulfame'],
+  },
+  {
+    label: 'Ultra-processed seed oils',
+    keywords: ['seed oil', 'seed oils', 'canola oil', 'vegetable oil'],
+  },
+  { label: 'Farmed fish oil', keywords: ['farmed fish oil'] },
+  { label: 'Soybean oil', keywords: ['soybean oil'] },
+  { label: 'Gluten', keywords: ['gluten'] },
+  { label: 'Synthetic vitamins', keywords: ['synthetic vitamin'] },
+  {
+    label: 'Synthetic food coloring',
+    keywords: ['synthetic food coloring', 'artificial color', 'food coloring'],
+  },
+  {
+    label: 'Synthetic preservatives',
+    keywords: ['synthetic preservative', 'artificial preservative'],
+  },
+  { label: 'Artificial flavoring', keywords: ['artificial flavor'] },
+  { label: 'Sulfates', keywords: ['sulfate', 'sulfates'] },
+  { label: 'Parabens', keywords: ['paraben', 'parabens'] },
+  { label: 'Silicones', keywords: ['silicone', 'silicones'] },
+  { label: 'Phthalates', keywords: ['phthalate', 'phthalates'] },
+  { label: 'Petroleum', keywords: ['petroleum'] },
+  { label: 'Dyes', keywords: ['dye', 'dyes'] },
+  { label: 'Magnesium silicate', keywords: ['magnesium silicate'] },
+  {
+    label: 'Shellac/pharmaceutical glaze',
+    keywords: ['shellac', 'pharmaceutical glaze'],
+  },
+  { label: 'Carrageenan', keywords: ['carrageenan'] },
+  { label: 'Potassium sorbate', keywords: ['potassium sorbate'] },
+  { label: 'Ascorbyl palmitate', keywords: ['ascorbyl palmitate'] },
+  { label: 'Lead', keywords: ['lead'] },
+  { label: 'Calcium carbonate', keywords: ['calcium carbonate'] },
+  { label: 'Magnesium oxide', keywords: ['magnesium oxide'] },
+  { label: 'Bread', keywords: ['bread'] },
+  { label: 'Rice', keywords: ['rice'] },
+  { label: 'Pasta', keywords: ['pasta'] },
+  { label: 'Fries', keywords: ['fries'] },
+  { label: 'Potato', keywords: ['potato'] },
 ];
 
 export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult {
   const normalizedDetails = mealDetails.toLowerCase();
   const macros = estimateMacros(normalizedDetails);
-  const avoidFoods = avoidKeywords.filter((keyword) =>
-    normalizedDetails.includes(keyword),
-  );
+  const avoidFoods = getAvoidFoods(normalizedDetails);
 
   const score = calculateKetovoreScore(macros.carbs, avoidFoods.length);
   const isFriendly = score >= 80;
@@ -41,6 +83,7 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
       ? 'Keto/carnivore-friendly estimate'
       : 'Needs review for keto/carnivore goals',
     score,
+    scoreDisplay: getScoreDisplay(score),
     scoreLabel: getScoreLabel(score),
     calories: macros.calories,
     protein: macros.protein,
@@ -57,12 +100,24 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
   };
 }
 
+function getAvoidFoods(details: string) {
+  return dirtyThirtyIngredients
+    .filter((ingredient) =>
+      ingredient.keywords.some((keyword) => details.includes(keyword)),
+    )
+    .map((ingredient) => ingredient.label);
+}
+
 function calculateKetovoreScore(carbs: number, avoidFoodCount: number) {
   const carbPenalty = Math.min(carbs * 2, 45);
   const avoidFoodPenalty = avoidFoodCount * 15;
   const score = 100 - carbPenalty - avoidFoodPenalty;
 
   return Math.max(0, Math.round(score));
+}
+
+function getScoreDisplay(score: number) {
+  return `${Math.round(score / 10)}/10`;
 }
 
 function getScoreLabel(score: number) {
