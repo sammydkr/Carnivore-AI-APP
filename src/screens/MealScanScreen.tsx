@@ -138,8 +138,16 @@ export function MealScanScreen() {
 function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
   return (
     <View style={styles.analysisCard}>
-      <Text style={styles.analysisTitle}>{analysis.verdict}</Text>
-      <Text style={styles.analysisMessage}>{analysis.message}</Text>
+      <View style={styles.resultHeader}>
+        <View style={styles.resultHeaderText}>
+          <Text style={styles.analysisTitle}>{analysis.verdict}</Text>
+          <Text style={styles.analysisMessage}>{analysis.message}</Text>
+        </View>
+        <View style={styles.scoreBadge}>
+          <Text style={styles.scoreValue}>{analysis.score}</Text>
+          <Text style={styles.scoreLabel}>{analysis.scoreLabel}</Text>
+        </View>
+      </View>
 
       <View style={styles.metricRow}>
         <Metric label="Calories" value={`${analysis.calories}`} />
@@ -148,15 +156,36 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
         <Metric label="Carbs" value={`${analysis.carbs}g`} />
       </View>
 
-      {analysis.avoidFoods.length > 0 ? (
-        <Text style={styles.warningText}>
-          Review these items: {analysis.avoidFoods.join(', ')}
-        </Text>
-      ) : null}
+      <ResultSection
+        title="Foods to avoid"
+        body={
+          analysis.avoidFoods.length > 0
+            ? `Review these items: ${analysis.avoidFoods.join(', ')}`
+            : 'No obvious sugar, high-carb starch, or seed-oil keywords were found in this entry.'
+        }
+      />
 
-      <Text style={styles.tipText}>{analysis.wholeFoodTip}</Text>
-      <Text style={styles.disclaimerText}>
-        {analysis.ketoneNote} {shortDisclaimer}
+      <ResultSection title="Whole food recommendation" body={analysis.wholeFoodTip} />
+      <ResultSection title="Ketone education note" body={analysis.ketoneNote} />
+      <ResultSection title="Safety note" body={shortDisclaimer} compact />
+    </View>
+  );
+}
+
+function ResultSection({
+  title,
+  body,
+  compact = false,
+}: {
+  title: string;
+  body: string;
+  compact?: boolean;
+}) {
+  return (
+    <View style={[styles.resultSection, compact && styles.compactResultSection]}>
+      <Text style={styles.resultSectionTitle}>{title}</Text>
+      <Text style={compact ? styles.disclaimerText : styles.resultSectionText}>
+        {body}
       </Text>
     </View>
   );
@@ -289,6 +318,35 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginTop: tokens.spacing.xs,
   },
+  resultHeader: {
+    flexDirection: 'row',
+    gap: tokens.spacing.md,
+  },
+  resultHeaderText: {
+    flex: 1,
+  },
+  scoreBadge: {
+    alignItems: 'center',
+    backgroundColor: tokens.colors.surface,
+    borderRadius: tokens.radius.lg,
+    justifyContent: 'center',
+    minHeight: 92,
+    padding: tokens.spacing.sm,
+    width: 104,
+  },
+  scoreValue: {
+    color: tokens.colors.primary,
+    fontSize: 30,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  scoreLabel: {
+    color: tokens.colors.mutedText,
+    fontSize: tokens.typography.caption,
+    fontWeight: '800',
+    marginTop: tokens.spacing.xs,
+    textAlign: 'center',
+  },
   metricRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -314,18 +372,27 @@ const styles = StyleSheet.create({
     marginTop: tokens.spacing.xs,
     textAlign: 'center',
   },
-  warningText: {
-    color: tokens.colors.primarySoft,
+  resultSection: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+    borderRadius: tokens.radius.lg,
+    borderWidth: 1,
+    marginTop: tokens.spacing.md,
+    padding: tokens.spacing.md,
+  },
+  compactResultSection: {
+    padding: tokens.spacing.sm,
+  },
+  resultSectionTitle: {
+    color: tokens.colors.surface,
     fontSize: tokens.typography.body,
     fontWeight: '800',
-    lineHeight: 22,
-    marginTop: tokens.spacing.md,
   },
-  tipText: {
+  resultSectionText: {
     color: tokens.colors.primarySoft,
     fontSize: tokens.typography.body,
     lineHeight: 22,
-    marginTop: tokens.spacing.md,
+    marginTop: tokens.spacing.xs,
   },
   disclaimerText: {
     color: tokens.colors.primarySoft,

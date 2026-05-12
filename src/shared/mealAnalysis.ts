@@ -33,12 +33,15 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
     normalizedDetails.includes(keyword),
   );
 
-  const isFriendly = avoidFoods.length === 0 && macros.carbs <= 10;
+  const score = calculateKetovoreScore(macros.carbs, avoidFoods.length);
+  const isFriendly = score >= 80;
 
   return {
     verdict: isFriendly
       ? 'Keto/carnivore-friendly estimate'
       : 'Needs review for keto/carnivore goals',
+    score,
+    scoreLabel: getScoreLabel(score),
     calories: macros.calories,
     protein: macros.protein,
     fat: macros.fat,
@@ -52,6 +55,30 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
     ketoneNote:
       'Ketones usually rise when carbs stay low and meals are built around protein and healthy fats.',
   };
+}
+
+function calculateKetovoreScore(carbs: number, avoidFoodCount: number) {
+  const carbPenalty = Math.min(carbs * 2, 45);
+  const avoidFoodPenalty = avoidFoodCount * 15;
+  const score = 100 - carbPenalty - avoidFoodPenalty;
+
+  return Math.max(0, Math.round(score));
+}
+
+function getScoreLabel(score: number) {
+  if (score >= 90) {
+    return 'Excellent fit';
+  }
+
+  if (score >= 75) {
+    return 'Strong fit';
+  }
+
+  if (score >= 55) {
+    return 'Moderate fit';
+  }
+
+  return 'Needs adjustment';
 }
 
 function estimateMacros(details: string): MacroEstimate {

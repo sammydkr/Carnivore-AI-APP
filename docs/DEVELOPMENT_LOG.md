@@ -150,3 +150,24 @@ The disclaimer now states:
 - Short disclaimer appears in the meal analysis result
 - Full disclaimer appears in Settings
 - AI disclaimer appears in the AI Coach placeholder
+
+## 2026-05-12: Improved Mock Meal Result
+
+### What We Did
+
+Improved the mock meal analysis result so users can understand the result faster.
+
+The result now shows:
+
+- Meal verdict
+- Keto/carnivore score
+- Estimated calories
+- Estimated protein, fat, and carbs
+- Foods to avoid section
+- Whole food recommendation
+- Ketone education note
+- Safety disclaimer
+
+### Important Note
+
+The result is still a local mock estimate. Real AI image analysis and validated nutrition data will come later.
