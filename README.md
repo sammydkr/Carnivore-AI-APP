@@ -15,18 +15,20 @@ The first version is intentionally small. The goal is to build a clean beginner-
 - Basic AI coach
 - Health disclaimer
 - Settings page
+- Photo food recognition and tell customer macros and calories
 
 ## Not In The First MVP
 
 - Community
 - Restaurant finder
 - Rancher finder
-- Barcode scanner
+- Barcode scanner for a supermarket
 - Photo food recognition
 - Ingredients hunter
 - Wearable integration
 - 1-on-1 coaching
 - Advanced vitamin engine
+- Keton tracker Max 50 Gr Carbs a day 
 
 ## Technology Stack
 
