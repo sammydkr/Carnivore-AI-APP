@@ -14,6 +14,25 @@ import { shortDisclaimer } from '../shared/disclaimer';
 import { tokens } from '../shared/tokens';
 import type { MealAnalysisResult } from '../shared/types';
 
+const mealExamples = [
+  {
+    label: 'Steak + eggs',
+    details: '400g steak, 20g butter, 8 eggs',
+  },
+  {
+    label: 'Ground beef + butter',
+    details: '250g ground beef, 25g butter, 3 eggs',
+  },
+  {
+    label: 'Salmon + eggs',
+    details: '250g salmon, 4 eggs, 15g butter',
+  },
+  {
+    label: 'Chicken + avocado',
+    details: '250g chicken, 100g avocado, 10g butter',
+  },
+];
+
 export function MealScanScreen() {
   const [imageUri, setImageUri] = React.useState<string | null>(null);
   const [mealDetails, setMealDetails] = React.useState('400g steak, 20g butter, 8 eggs');
@@ -72,6 +91,12 @@ export function MealScanScreen() {
     setAnalysis(createMockMealAnalysis(trimmedDetails));
   }
 
+  function selectMealExample(details: string) {
+    setMealDetails(details);
+    setAnalysis(null);
+    setError(null);
+  }
+
   return (
     <View style={styles.card}>
       <Text style={styles.eyebrow}>Meal scanner MVP</Text>
@@ -106,6 +131,21 @@ export function MealScanScreen() {
         >
           <Text style={styles.secondaryButtonText}>Take Photo</Text>
         </Pressable>
+      </View>
+
+      <Text style={styles.inputLabel}>Quick examples</Text>
+      <View style={styles.exampleGrid}>
+        {mealExamples.map((example) => (
+          <Pressable
+            accessibilityLabel={`Use ${example.label} example`}
+            accessibilityRole="button"
+            key={example.label}
+            onPress={() => selectMealExample(example.details)}
+            style={styles.exampleButton}
+          >
+            <Text style={styles.exampleButtonText}>{example.label}</Text>
+          </Pressable>
+        ))}
       </View>
 
       <Text style={styles.inputLabel}>Meal details</Text>
@@ -269,6 +309,25 @@ const styles = StyleSheet.create({
     fontSize: tokens.typography.body,
     fontWeight: '800',
     marginTop: tokens.spacing.lg,
+  },
+  exampleGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: tokens.spacing.sm,
+    marginTop: tokens.spacing.sm,
+  },
+  exampleButton: {
+    backgroundColor: tokens.colors.surfaceMuted,
+    borderColor: tokens.colors.border,
+    borderRadius: tokens.radius.pill,
+    borderWidth: 1,
+    paddingHorizontal: tokens.spacing.md,
+    paddingVertical: tokens.spacing.sm,
+  },
+  exampleButtonText: {
+    color: tokens.colors.primary,
+    fontSize: tokens.typography.body,
+    fontWeight: '800',
   },
   input: {
     backgroundColor: tokens.colors.surfaceMuted,

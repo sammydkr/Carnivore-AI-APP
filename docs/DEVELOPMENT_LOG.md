@@ -171,3 +171,18 @@ The result now shows:
 ### Important Note
 
 The result is still a local mock estimate. Real AI image analysis and validated nutrition data will come later.
+
+## 2026-05-14: Meal Quick-Fill Examples
+
+### What We Did
+
+Added quick-fill meal examples to make the Scan screen faster to test.
+
+The quick examples are:
+
+- Steak + eggs
+- Ground beef + butter
+- Salmon + eggs
+- Chicken + avocado
+
+Tapping an example fills the meal details field while still allowing the user to edit the text manually.

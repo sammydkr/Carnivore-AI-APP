@@ -139,8 +139,14 @@ function getScoreLabel(score: number) {
 function estimateMacros(details: string): MacroEstimate {
   const estimate = { ...emptyEstimate };
 
-  addGramFood(estimate, details, ['steak', 'beef', 'meat'], {
+  addGramFood(estimate, details, ['steak', 'red meat', 'meat'], {
     calories: 250,
+    protein: 26,
+    fat: 17,
+    carbs: 0,
+  });
+  addGramFood(estimate, details, ['ground beef', 'beef'], {
+    calories: 254,
     protein: 26,
     fat: 17,
     carbs: 0,
@@ -162,6 +168,12 @@ function estimateMacros(details: string): MacroEstimate {
     protein: 31,
     fat: 4,
     carbs: 0,
+  });
+  addGramFood(estimate, details, ['avocado'], {
+    calories: 160,
+    protein: 2,
+    fat: 15,
+    carbs: 9,
   });
   addEggs(estimate, details);
 
