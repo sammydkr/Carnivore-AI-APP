@@ -70,7 +70,9 @@ export default function App() {
         contentContainerStyle={styles.content}
         keyboardShouldPersistTaps="handled"
       >
-        {screen === 'home' && <HomeScreen onStartScan={() => setScreen('scan')} />}
+        {screen === 'home' && (
+          <HomeScreen meals={savedMeals} onStartScan={() => setScreen('scan')} />
+        )}
         {screen === 'scan' && (
           <MealScanScreen
             onSaveMeal={handleSaveMeal}

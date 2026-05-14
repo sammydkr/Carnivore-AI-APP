@@ -65,6 +65,7 @@ Completed first:
 - Show today's calories, protein, fat, and carbs
 - Show recent saved meals
 - Clear local meal history
+- Add home screen daily status, smart recommendation, and streak preview
 
 Planned next:
 

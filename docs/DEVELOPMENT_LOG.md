@@ -268,3 +268,23 @@ The app now supports:
 ### Technical Note
 
 Added `@react-native-async-storage/async-storage` for simple local storage during the Expo MVP phase. This is not a backend or account system yet. Later, user accounts and cloud sync can move this history to a real database.
+
+## 2026-05-14: Home Daily Status Upgrade
+
+### What We Added
+
+Updated the Home screen so it feels more useful after users save meals.
+
+The Home screen now shows:
+
+- Smaller Ketovore AI logo to create more space
+- Today's Status card
+- Calories progress against a simple 1,800 calorie starter goal
+- Protein progress against a simple 170g starter goal
+- Fat, carbs, and meal count
+- Smart AI Coach preview recommendation
+- Ketovore streak preview
+
+### Product Note
+
+The daily goals are temporary MVP defaults. Later, profile setup should personalize goals based on weight, activity, and user objective.
