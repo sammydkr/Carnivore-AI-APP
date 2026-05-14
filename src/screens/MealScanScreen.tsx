@@ -35,16 +35,32 @@ const mealExamples = [
 ];
 
 interface MealScanScreenProps {
+  cameraLaunchRequest: number;
   onSaveMeal: (entry: SavedMealEntry) => Promise<void>;
   onViewTracker: () => void;
 }
 
-export function MealScanScreen({ onSaveMeal, onViewTracker }: MealScanScreenProps) {
+export function MealScanScreen({
+  cameraLaunchRequest,
+  onSaveMeal,
+  onViewTracker,
+}: MealScanScreenProps) {
   const [imageUri, setImageUri] = React.useState<string | null>(null);
   const [mealDetails, setMealDetails] = React.useState('400g steak, 20g butter, 8 eggs');
   const [analysis, setAnalysis] = React.useState<MealAnalysisResult | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
+  const handledCameraRequest = React.useRef(0);
+
+  React.useEffect(() => {
+    if (
+      cameraLaunchRequest > 0 &&
+      cameraLaunchRequest !== handledCameraRequest.current
+    ) {
+      handledCameraRequest.current = cameraLaunchRequest;
+      takePhoto();
+    }
+  }, [cameraLaunchRequest]);
 
   async function pickImage() {
     setError(null);

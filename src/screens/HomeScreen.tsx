@@ -1,3 +1,5 @@
+import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -28,6 +30,11 @@ export function HomeScreen({ meals, onStartScan }: HomeScreenProps) {
   const totals = getMacroTotals(activeDay.meals);
   const streak = getKetovoreStreak(meals);
 
+  async function scanNow() {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    onStartScan();
+  }
+
   return (
     <View style={styles.screen}>
       <View style={styles.heroCard}>
@@ -39,14 +46,6 @@ export function HomeScreen({ meals, onStartScan }: HomeScreenProps) {
         />
         <Text style={styles.tagline}>AI Meets Real Food.</Text>
 
-        <Pressable
-          accessibilityLabel="Start meal scan"
-          accessibilityRole="button"
-          onPress={onStartScan}
-          style={styles.primaryButton}
-        >
-          <Text style={styles.primaryButtonText}>Scan Your Meal</Text>
-        </Pressable>
       </View>
 
       <View style={styles.statusCard}>
@@ -97,6 +96,16 @@ export function HomeScreen({ meals, onStartScan }: HomeScreenProps) {
             : 'Save one strong meal today to begin.'}
         </Text>
       </View>
+
+      <Pressable
+        accessibilityLabel="Scan now with camera"
+        accessibilityRole="button"
+        onPress={scanNow}
+        style={styles.scanNowButton}
+      >
+        <Ionicons color={tokens.colors.surface} name="camera" size={22} />
+        <Text style={styles.scanNowText}>Scan Now</Text>
+      </Pressable>
 
       <View style={styles.infoBand}>
         <Text style={styles.infoTitle}>Real food first</Text>
@@ -277,19 +286,25 @@ const styles = StyleSheet.create({
     marginTop: tokens.spacing.xs,
     textAlign: 'center',
   },
-  primaryButton: {
+  scanNowButton: {
+    alignItems: 'center',
     backgroundColor: tokens.colors.primary,
-    borderRadius: tokens.radius.lg,
-    marginTop: tokens.spacing.md,
-    paddingHorizontal: tokens.spacing.xl,
+    borderRadius: tokens.radius.pill,
+    flexDirection: 'row',
+    gap: tokens.spacing.sm,
+    justifyContent: 'center',
+    paddingHorizontal: tokens.spacing.lg,
     paddingVertical: tokens.spacing.md,
-    width: '100%',
+    shadowColor: tokens.colors.primaryDark,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 18,
+    elevation: 5,
   },
-  primaryButtonText: {
+  scanNowText: {
     color: tokens.colors.surface,
     fontSize: tokens.typography.lead,
-    fontWeight: '800',
-    textAlign: 'center',
+    fontWeight: '900',
   },
   statusCard: {
     backgroundColor: tokens.colors.surface,

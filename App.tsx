@@ -35,6 +35,7 @@ export default function App() {
   const [screen, setScreen] = React.useState<Screen>('home');
   const [savedMeals, setSavedMeals] = React.useState<SavedMealEntry[]>([]);
   const [historyError, setHistoryError] = React.useState<string | null>(null);
+  const [cameraLaunchRequest, setCameraLaunchRequest] = React.useState(0);
 
   React.useEffect(() => {
     loadMealHistory()
@@ -60,6 +61,11 @@ export default function App() {
     setHistoryError(null);
   }
 
+  function handleScanNow() {
+    setCameraLaunchRequest((request) => request + 1);
+    setScreen('scan');
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -71,10 +77,11 @@ export default function App() {
         keyboardShouldPersistTaps="handled"
       >
         {screen === 'home' && (
-          <HomeScreen meals={savedMeals} onStartScan={() => setScreen('scan')} />
+          <HomeScreen meals={savedMeals} onStartScan={handleScanNow} />
         )}
         {screen === 'scan' && (
           <MealScanScreen
+            cameraLaunchRequest={cameraLaunchRequest}
             onSaveMeal={handleSaveMeal}
             onViewTracker={() => setScreen('tracker')}
           />

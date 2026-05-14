@@ -288,3 +288,18 @@ The Home screen now shows:
 ### Product Note
 
 The daily goals are temporary MVP defaults. Later, profile setup should personalize goals based on weight, activity, and user objective.
+
+## 2026-05-14: Scan Now Camera Button
+
+### What We Added
+
+Improved the Home screen scan action:
+
+- Replaced the generic home scan button with a large `Scan Now` pill button.
+- Added a camera icon to make the primary action easier to recognize.
+- Added haptic feedback on tap.
+- Tapping `Scan Now` now opens the Scan screen and launches the camera directly.
+
+### Product Reason
+
+This makes the main action faster and simpler. The fewer taps it takes to scan a meal, the more likely users are to use the app every day.

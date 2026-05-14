@@ -66,6 +66,7 @@ Completed first:
 - Show recent saved meals
 - Clear local meal history
 - Add home screen daily status, smart recommendation, and streak preview
+- Add one-tap home `Scan Now` camera button with haptic feedback
 
 Planned next:
 
