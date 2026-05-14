@@ -218,3 +218,17 @@ The scan flow now supports:
 - Clearing old analysis when meal details change
 - Analyze Again button label after a result exists
 - Helper text explaining that users can edit and analyze again
+
+## 2026-05-14: Meal Math And Keyboard Fix
+
+### What We Fixed
+
+Improved two early MVP bugs found during phone testing:
+
+- Meal macro estimates are now calculated item by item instead of matching every food word across the full text.
+- `ground beef`, `steak`, `butter`, `salmon`, `fish`, `chicken`, `pork`, `avocado`, and `eggs` now use clearer default portions and exact gram amounts when typed.
+- The app now uses a keyboard-aware layout so the phone keyboard does not hide the meal details field while users type.
+
+### Important Note
+
+These numbers are still simple MVP estimates for testing. Later we should connect the app to a trusted nutrition data source before giving users production-level macro results.

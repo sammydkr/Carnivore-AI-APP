@@ -7,12 +7,66 @@ interface MacroEstimate {
   carbs: number;
 }
 
+interface FoodDefinition {
+  aliases: string[];
+  defaultGrams: number;
+  per100g: MacroEstimate;
+}
+
 const emptyEstimate: MacroEstimate = {
   calories: 0,
   protein: 0,
   fat: 0,
   carbs: 0,
 };
+
+const foodDefinitions: FoodDefinition[] = [
+  {
+    aliases: ['ground beef'],
+    defaultGrams: 250,
+    per100g: { calories: 254, protein: 26, fat: 17, carbs: 0 },
+  },
+  {
+    aliases: ['steak'],
+    defaultGrams: 250,
+    per100g: { calories: 250, protein: 26, fat: 17, carbs: 0 },
+  },
+  {
+    aliases: ['beef', 'red meat', 'meat'],
+    defaultGrams: 250,
+    per100g: { calories: 250, protein: 26, fat: 17, carbs: 0 },
+  },
+  {
+    aliases: ['butter'],
+    defaultGrams: 15,
+    per100g: { calories: 717, protein: 1, fat: 81, carbs: 0 },
+  },
+  {
+    aliases: ['salmon'],
+    defaultGrams: 200,
+    per100g: { calories: 208, protein: 22, fat: 13, carbs: 0 },
+  },
+  {
+    aliases: ['fish'],
+    defaultGrams: 200,
+    per100g: { calories: 180, protein: 22, fat: 8, carbs: 0 },
+  },
+  {
+    aliases: ['chicken'],
+    defaultGrams: 250,
+    per100g: { calories: 165, protein: 31, fat: 4, carbs: 0 },
+  },
+  {
+    aliases: ['pork'],
+    defaultGrams: 250,
+    per100g: { calories: 242, protein: 27, fat: 14, carbs: 0 },
+  },
+  {
+    aliases: ['avocado'],
+    defaultGrams: 100,
+    per100g: { calories: 160, protein: 2, fat: 15, carbs: 9 },
+  },
+];
 
 const dirtyThirtyIngredients = [
   {
@@ -138,44 +192,25 @@ function getScoreLabel(score: number) {
 
 function estimateMacros(details: string): MacroEstimate {
   const estimate = { ...emptyEstimate };
+  const mealItems = getMealItems(details);
 
-  addGramFood(estimate, details, ['steak', 'red meat', 'meat'], {
-    calories: 250,
-    protein: 26,
-    fat: 17,
-    carbs: 0,
+  mealItems.forEach((item) => {
+    if (matchesEggs(item)) {
+      addEggs(estimate, item);
+      return;
+    }
+
+    const food = foodDefinitions.find((definition) =>
+      definition.aliases.some((alias) => matchesAlias(item, alias)),
+    );
+
+    if (!food) {
+      return;
+    }
+
+    const grams = extractGrams(item) ?? food.defaultGrams;
+    addPer100gFood(estimate, food.per100g, grams);
   });
-  addGramFood(estimate, details, ['ground beef', 'beef'], {
-    calories: 254,
-    protein: 26,
-    fat: 17,
-    carbs: 0,
-  });
-  addGramFood(estimate, details, ['butter'], {
-    calories: 717,
-    protein: 1,
-    fat: 81,
-    carbs: 0,
-  });
-  addGramFood(estimate, details, ['fish', 'salmon'], {
-    calories: 208,
-    protein: 22,
-    fat: 13,
-    carbs: 0,
-  });
-  addGramFood(estimate, details, ['chicken'], {
-    calories: 165,
-    protein: 31,
-    fat: 4,
-    carbs: 0,
-  });
-  addGramFood(estimate, details, ['avocado'], {
-    calories: 160,
-    protein: 2,
-    fat: 15,
-    carbs: 9,
-  });
-  addEggs(estimate, details);
 
   if (estimate.calories === 0) {
     return {
@@ -189,19 +224,22 @@ function estimateMacros(details: string): MacroEstimate {
   return roundEstimate(estimate);
 }
 
-function addGramFood(
+function getMealItems(details: string) {
+  const separatedDetails = details
+    .replace(/\s+(?=\d+(?:\.\d+)?\s*(?:g|gr|gram|grams)\b)/g, ', ')
+    .replace(/\s+(?=\d+(?:\.\d+)?\s*(?:large\s*)?eggs?\b)/g, ', ');
+
+  return separatedDetails
+    .split(/[,;\n]+|\s+and\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function addPer100gFood(
   estimate: MacroEstimate,
-  details: string,
-  keywords: string[],
   per100g: MacroEstimate,
+  grams: number,
 ) {
-  const matchesFood = keywords.some((keyword) => details.includes(keyword));
-
-  if (!matchesFood) {
-    return;
-  }
-
-  const grams = extractGramsBeforeKeywords(details, keywords);
   const multiplier = grams / 100;
   estimate.calories += per100g.calories * multiplier;
   estimate.protein += per100g.protein * multiplier;
@@ -210,11 +248,7 @@ function addGramFood(
 }
 
 function addEggs(estimate: MacroEstimate, details: string) {
-  if (!details.includes('egg')) {
-    return;
-  }
-
-  const eggMatch = details.match(/(\d+)\s*(large\s*)?eggs?/);
+  const eggMatch = details.match(/(\d+(?:\.\d+)?)\s*(large\s*)?eggs?\b/);
   const eggCount = eggMatch ? Number(eggMatch[1]) : 2;
   estimate.calories += eggCount * 72;
   estimate.protein += eggCount * 6;
@@ -222,16 +256,23 @@ function addEggs(estimate: MacroEstimate, details: string) {
   estimate.carbs += eggCount * 0.5;
 }
 
-function extractGramsBeforeKeywords(details: string, keywords: string[]) {
-  for (const keyword of keywords) {
-    const match = details.match(new RegExp(`(\\d+)\\s*g(?:r|ram|rams)?\\s+${keyword}`));
+function extractGrams(details: string) {
+  const gramMatch = details.match(/(\d+(?:\.\d+)?)\s*(?:g|gr|gram|grams)\b/);
 
-    if (match) {
-      return Number(match[1]);
-    }
+  if (gramMatch) {
+    return Number(gramMatch[1]);
   }
 
-  return 100;
+  return null;
+}
+
+function matchesEggs(details: string) {
+  return /\beggs?\b/.test(details);
+}
+
+function matchesAlias(details: string, alias: string) {
+  const escapedAlias = alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`\\b${escapedAlias}\\b`).test(details);
 }
 
 function roundEstimate(estimate: MacroEstimate): MacroEstimate {

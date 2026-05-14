@@ -1,6 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import { CoachScreen } from './src/screens/CoachScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
@@ -22,8 +30,15 @@ export default function App() {
   const [screen, setScreen] = React.useState<Screen>('home');
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 24 : 0}
+      style={styles.container}
+    >
+      <ScrollView
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+      >
         {screen === 'home' && <HomeScreen onStartScan={() => setScreen('scan')} />}
         {screen === 'scan' && <MealScanScreen />}
         {screen === 'tracker' && <TrackerScreen />}
@@ -51,7 +66,7 @@ export default function App() {
         })}
       </View>
       <StatusBar style="auto" />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
