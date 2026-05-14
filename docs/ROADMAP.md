@@ -43,10 +43,13 @@ Planned:
 
 - Choose or take a meal photo
 - Enter meal details manually
+- Add quick-fill meal examples
 - Show estimated calories and macros
 - Show keto/carnivore-friendly verdict
 - Warn about high-carb foods, junk foods, sugar, and seed oils
 - Remind users that results are estimates and general wellness education
+
+Future meal-example upgrades are tracked in `docs/MEAL_EXAMPLE_IDEAS.md`.
 
 ## MVP 3: Tracker
 

@@ -186,3 +186,19 @@ The quick examples are:
 - Chicken + avocado
 
 Tapping an example fills the meal details field while still allowing the user to edit the text manually.
+
+### Future Ideas Saved
+
+Created `docs/MEAL_EXAMPLE_IDEAS.md` to capture future meal example ideas:
+
+- Goal-based examples
+- Meal category filters
+- Beginner meal templates
+- Score previews
+- Food education notes
+- Meal size options
+- Warning meal examples
+- Learn by Example cards
+- Favorite meals
+- Cultural and restaurant-style examples
+- Shopping-style examples
