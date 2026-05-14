@@ -8,9 +8,15 @@ interface MacroEstimate {
 }
 
 interface FoodDefinition {
+  displayName: string;
   aliases: string[];
   defaultGrams: number;
   per100g: MacroEstimate;
+}
+
+interface MacroEstimateSummary extends MacroEstimate {
+  recognizedFoods: string[];
+  unrecognizedItems: string[];
 }
 
 const emptyEstimate: MacroEstimate = {
@@ -22,49 +28,220 @@ const emptyEstimate: MacroEstimate = {
 
 const foodDefinitions: FoodDefinition[] = [
   {
-    aliases: ['ground beef'],
-    defaultGrams: 250,
-    per100g: { calories: 254, protein: 26, fat: 17, carbs: 0 },
-  },
-  {
-    aliases: ['steak'],
+    displayName: 'Ground beef',
+    aliases: ['ground beef', 'minced beef'],
     defaultGrams: 250,
     per100g: { calories: 250, protein: 26, fat: 17, carbs: 0 },
   },
   {
+    displayName: 'Ribeye steak',
+    aliases: ['ribeye steak', 'ribeye'],
+    defaultGrams: 300,
+    per100g: { calories: 291, protein: 24, fat: 22, carbs: 0 },
+  },
+  {
+    displayName: 'Steak',
+    aliases: ['steak', 'sirloin steak'],
+    defaultGrams: 250,
+    per100g: { calories: 250, protein: 26, fat: 17, carbs: 0 },
+  },
+  {
+    displayName: 'Beef',
     aliases: ['beef', 'red meat', 'meat'],
     defaultGrams: 250,
     per100g: { calories: 250, protein: 26, fat: 17, carbs: 0 },
   },
   {
+    displayName: 'Butter',
     aliases: ['butter'],
     defaultGrams: 15,
     per100g: { calories: 717, protein: 1, fat: 81, carbs: 0 },
   },
   {
+    displayName: 'Ghee',
+    aliases: ['ghee', 'clarified butter'],
+    defaultGrams: 15,
+    per100g: { calories: 900, protein: 0, fat: 100, carbs: 0 },
+  },
+  {
+    displayName: 'Beef tallow',
+    aliases: ['tallow', 'beef tallow'],
+    defaultGrams: 15,
+    per100g: { calories: 902, protein: 0, fat: 100, carbs: 0 },
+  },
+  {
+    displayName: 'Salmon',
     aliases: ['salmon'],
     defaultGrams: 200,
     per100g: { calories: 208, protein: 22, fat: 13, carbs: 0 },
   },
   {
+    displayName: 'Fish',
     aliases: ['fish'],
     defaultGrams: 200,
     per100g: { calories: 180, protein: 22, fat: 8, carbs: 0 },
   },
   {
-    aliases: ['chicken'],
+    displayName: 'Tuna',
+    aliases: ['tuna'],
+    defaultGrams: 150,
+    per100g: { calories: 132, protein: 28, fat: 1, carbs: 0 },
+  },
+  {
+    displayName: 'Cod',
+    aliases: ['cod'],
+    defaultGrams: 200,
+    per100g: { calories: 105, protein: 23, fat: 1, carbs: 0 },
+  },
+  {
+    displayName: 'Sardines',
+    aliases: ['sardine', 'sardines'],
+    defaultGrams: 100,
+    per100g: { calories: 208, protein: 25, fat: 11, carbs: 0 },
+  },
+  {
+    displayName: 'Shrimp',
+    aliases: ['shrimp', 'prawn', 'prawns'],
+    defaultGrams: 150,
+    per100g: { calories: 99, protein: 24, fat: 0, carbs: 0 },
+  },
+  {
+    displayName: 'Chicken breast',
+    aliases: ['chicken breast'],
     defaultGrams: 250,
     per100g: { calories: 165, protein: 31, fat: 4, carbs: 0 },
   },
   {
-    aliases: ['pork'],
+    displayName: 'Chicken thigh',
+    aliases: ['chicken thigh', 'chicken thighs'],
+    defaultGrams: 250,
+    per100g: { calories: 209, protein: 26, fat: 11, carbs: 0 },
+  },
+  {
+    displayName: 'Chicken',
+    aliases: ['chicken'],
+    defaultGrams: 250,
+    per100g: { calories: 190, protein: 28, fat: 8, carbs: 0 },
+  },
+  {
+    displayName: 'Pork',
+    aliases: ['pork', 'pork chop', 'pork chops'],
     defaultGrams: 250,
     per100g: { calories: 242, protein: 27, fat: 14, carbs: 0 },
   },
   {
+    displayName: 'Bacon',
+    aliases: ['bacon'],
+    defaultGrams: 50,
+    per100g: { calories: 541, protein: 37, fat: 42, carbs: 1 },
+  },
+  {
+    displayName: 'Lamb',
+    aliases: ['lamb'],
+    defaultGrams: 250,
+    per100g: { calories: 294, protein: 25, fat: 21, carbs: 0 },
+  },
+  {
+    displayName: 'Turkey',
+    aliases: ['turkey'],
+    defaultGrams: 250,
+    per100g: { calories: 189, protein: 29, fat: 7, carbs: 0 },
+  },
+  {
+    displayName: 'Cheddar cheese',
+    aliases: ['cheddar', 'cheddar cheese'],
+    defaultGrams: 30,
+    per100g: { calories: 403, protein: 25, fat: 33, carbs: 1 },
+  },
+  {
+    displayName: 'Mozzarella',
+    aliases: ['mozzarella', 'mozzarella cheese'],
+    defaultGrams: 30,
+    per100g: { calories: 280, protein: 28, fat: 17, carbs: 3 },
+  },
+  {
+    displayName: 'Heavy cream',
+    aliases: ['heavy cream', 'whipping cream'],
+    defaultGrams: 30,
+    per100g: { calories: 340, protein: 2, fat: 36, carbs: 3 },
+  },
+  {
+    displayName: 'Cream cheese',
+    aliases: ['cream cheese'],
+    defaultGrams: 30,
+    per100g: { calories: 342, protein: 6, fat: 34, carbs: 4 },
+  },
+  {
+    displayName: 'Avocado',
     aliases: ['avocado'],
     defaultGrams: 100,
     per100g: { calories: 160, protein: 2, fat: 15, carbs: 9 },
+  },
+  {
+    displayName: 'Olive oil',
+    aliases: ['olive oil'],
+    defaultGrams: 15,
+    per100g: { calories: 884, protein: 0, fat: 100, carbs: 0 },
+  },
+  {
+    displayName: 'Coconut oil',
+    aliases: ['coconut oil'],
+    defaultGrams: 15,
+    per100g: { calories: 892, protein: 0, fat: 100, carbs: 0 },
+  },
+  {
+    displayName: 'Kimchi',
+    aliases: ['kimchi'],
+    defaultGrams: 100,
+    per100g: { calories: 15, protein: 1, fat: 1, carbs: 2 },
+  },
+  {
+    displayName: 'Sauerkraut',
+    aliases: ['sauerkraut'],
+    defaultGrams: 100,
+    per100g: { calories: 19, protein: 1, fat: 0, carbs: 4 },
+  },
+  {
+    displayName: 'Broccoli',
+    aliases: ['broccoli'],
+    defaultGrams: 100,
+    per100g: { calories: 35, protein: 2, fat: 0, carbs: 7 },
+  },
+  {
+    displayName: 'Cauliflower',
+    aliases: ['cauliflower'],
+    defaultGrams: 100,
+    per100g: { calories: 25, protein: 2, fat: 0, carbs: 5 },
+  },
+  {
+    displayName: 'Spinach',
+    aliases: ['spinach'],
+    defaultGrams: 100,
+    per100g: { calories: 23, protein: 3, fat: 0, carbs: 4 },
+  },
+  {
+    displayName: 'Mushrooms',
+    aliases: ['mushroom', 'mushrooms'],
+    defaultGrams: 100,
+    per100g: { calories: 22, protein: 3, fat: 0, carbs: 3 },
+  },
+  {
+    displayName: 'Zucchini',
+    aliases: ['zucchini'],
+    defaultGrams: 100,
+    per100g: { calories: 17, protein: 1, fat: 0, carbs: 3 },
+  },
+  {
+    displayName: 'Asparagus',
+    aliases: ['asparagus'],
+    defaultGrams: 100,
+    per100g: { calories: 20, protein: 2, fat: 0, carbs: 4 },
+  },
+  {
+    displayName: 'Cucumber',
+    aliases: ['cucumber'],
+    defaultGrams: 100,
+    per100g: { calories: 15, protein: 1, fat: 0, carbs: 4 },
   },
 ];
 
@@ -129,11 +306,20 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
   const macros = estimateMacros(normalizedDetails);
   const avoidFoods = getAvoidFoods(normalizedDetails);
 
-  const score = calculateKetovoreScore(macros.carbs, avoidFoods.length);
+  const score = calculateKetovoreScore(
+    macros.carbs,
+    avoidFoods.length,
+    macros.unrecognizedItems.length,
+    macros.recognizedFoods.length,
+  );
   const isFriendly = score >= 80;
+  const hasUnknownFoods = macros.unrecognizedItems.length > 0;
+  const hasRecognizedFoods = macros.recognizedFoods.length > 0;
 
   return {
-    verdict: isFriendly
+    verdict: !hasRecognizedFoods
+      ? 'Needs clearer meal details'
+      : isFriendly
       ? 'Keto/carnivore-friendly estimate'
       : 'Needs review for keto/carnivore goals',
     score,
@@ -143,14 +329,22 @@ export function createMockMealAnalysis(mealDetails: string): MealAnalysisResult 
     protein: macros.protein,
     fat: macros.fat,
     carbs: macros.carbs,
-    message: isFriendly
+    message: !hasRecognizedFoods
+      ? 'We could not match this meal to the current MVP nutrition table yet.'
+      : hasUnknownFoods
+      ? 'The app calculated the foods it recognized, but some items still need a database match.'
+      : isFriendly
       ? 'This meal looks focused on real food, protein, and low carbohydrates.'
       : 'This meal may include foods that can raise carbs or work against ketosis.',
+    recognizedFoods: macros.recognizedFoods,
+    unrecognizedItems: macros.unrecognizedItems,
     avoidFoods,
     wholeFoodTip:
       'Focus on whole foods like steak, eggs, fish, chicken, butter, and simple low-carb sides.',
     ketoneNote:
       'Ketones usually rise when carbs stay low and meals are built around protein and healthy fats.',
+    dataQualityNote:
+      'Nutrition numbers are MVP estimates from a local food table. Production accuracy should use a trusted nutrition database and branded label data.',
   };
 }
 
@@ -162,10 +356,20 @@ function getAvoidFoods(details: string) {
     .map((ingredient) => ingredient.label);
 }
 
-function calculateKetovoreScore(carbs: number, avoidFoodCount: number) {
+function calculateKetovoreScore(
+  carbs: number,
+  avoidFoodCount: number,
+  unrecognizedItemCount: number,
+  recognizedFoodCount: number,
+) {
+  if (recognizedFoodCount === 0) {
+    return 0;
+  }
+
   const carbPenalty = Math.min(carbs * 2, 45);
   const avoidFoodPenalty = avoidFoodCount * 15;
-  const score = 100 - carbPenalty - avoidFoodPenalty;
+  const unknownFoodPenalty = unrecognizedItemCount * 8;
+  const score = 100 - carbPenalty - avoidFoodPenalty - unknownFoodPenalty;
 
   return Math.max(0, Math.round(score));
 }
@@ -190,13 +394,16 @@ function getScoreLabel(score: number) {
   return 'Needs adjustment';
 }
 
-function estimateMacros(details: string): MacroEstimate {
+function estimateMacros(details: string): MacroEstimateSummary {
   const estimate = { ...emptyEstimate };
   const mealItems = getMealItems(details);
+  const recognizedFoods: string[] = [];
+  const unrecognizedItems: string[] = [];
 
   mealItems.forEach((item) => {
     if (matchesEggs(item)) {
       addEggs(estimate, item);
+      recognizedFoods.push(getEggLabel(item));
       return;
     }
 
@@ -205,23 +412,31 @@ function estimateMacros(details: string): MacroEstimate {
     );
 
     if (!food) {
+      unrecognizedItems.push(item);
       return;
     }
 
     const grams = extractGrams(item) ?? food.defaultGrams;
     addPer100gFood(estimate, food.per100g, grams);
+    recognizedFoods.push(`${formatAmount(grams)}g ${food.displayName}`);
   });
 
   if (estimate.calories === 0) {
     return {
-      calories: 650,
-      protein: 45,
-      fat: 48,
-      carbs: 6,
+      calories: 0,
+      protein: 0,
+      fat: 0,
+      carbs: 0,
+      recognizedFoods,
+      unrecognizedItems,
     };
   }
 
-  return roundEstimate(estimate);
+  return {
+    ...roundEstimate(estimate),
+    recognizedFoods,
+    unrecognizedItems,
+  };
 }
 
 function getMealItems(details: string) {
@@ -256,6 +471,12 @@ function addEggs(estimate: MacroEstimate, details: string) {
   estimate.carbs += eggCount * 0.5;
 }
 
+function getEggLabel(details: string) {
+  const eggMatch = details.match(/(\d+(?:\.\d+)?)\s*(large\s*)?eggs?\b/);
+  const eggCount = eggMatch ? Number(eggMatch[1]) : 2;
+  return `${formatAmount(eggCount)} large ${eggCount === 1 ? 'egg' : 'eggs'}`;
+}
+
 function extractGrams(details: string) {
   const gramMatch = details.match(/(\d+(?:\.\d+)?)\s*(?:g|gr|gram|grams)\b/);
 
@@ -273,6 +494,10 @@ function matchesEggs(details: string) {
 function matchesAlias(details: string, alias: string) {
   const escapedAlias = alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp(`\\b${escapedAlias}\\b`).test(details);
+}
+
+function formatAmount(amount: number) {
+  return Number.isInteger(amount) ? `${amount}` : `${amount.toFixed(1)}`;
 }
 
 function roundEstimate(estimate: MacroEstimate): MacroEstimate {

@@ -276,6 +276,22 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
       </View>
 
       <ResultSection
+        title="Foods included in estimate"
+        body={
+          analysis.recognizedFoods.length > 0
+            ? analysis.recognizedFoods.join(', ')
+            : 'No foods were matched yet. Try adding grams and a simple food name, like 250g steak or 3 eggs.'
+        }
+      />
+
+      {analysis.unrecognizedItems.length > 0 ? (
+        <ResultSection
+          title="Needs nutrition database match"
+          body={`Not calculated yet: ${analysis.unrecognizedItems.join(', ')}`}
+        />
+      ) : null}
+
+      <ResultSection
         title="Dirty 30 ingredients to avoid"
         body={
           analysis.avoidFoods.length > 0
@@ -286,6 +302,7 @@ function AnalysisCard({ analysis }: { analysis: MealAnalysisResult }) {
 
       <ResultSection title="Whole food recommendation" body={analysis.wholeFoodTip} />
       <ResultSection title="Ketone education note" body={analysis.ketoneNote} />
+      <ResultSection title="Macro accuracy note" body={analysis.dataQualityNote} compact />
       <ResultSection title="Safety note" body={shortDisclaimer} compact />
     </View>
   );

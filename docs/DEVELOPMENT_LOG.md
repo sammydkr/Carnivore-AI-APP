@@ -232,3 +232,19 @@ Improved two early MVP bugs found during phone testing:
 ### Important Note
 
 These numbers are still simple MVP estimates for testing. Later we should connect the app to a trusted nutrition data source before giving users production-level macro results.
+
+## 2026-05-14: Safer Macro Estimate Messaging
+
+### What We Changed
+
+Improved the meal analysis so the app is more honest about nutrition calculations:
+
+- Added a larger local nutrition table for common keto/carnivore MVP foods.
+- Removed the fake fallback macro result when the app cannot recognize a food.
+- Added a `Foods included in estimate` section to show what was calculated.
+- Added a `Needs nutrition database match` section for foods that were not calculated yet.
+- Added a macro accuracy note explaining that production accuracy needs a trusted nutrition database and branded label data.
+
+### Product Decision
+
+ChatGPT can help parse meal text and explain results, but the final calorie and macro numbers should come from verified nutrition data. This keeps the app safer, more trustworthy, and easier to approve later.

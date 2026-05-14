@@ -10,7 +10,10 @@ export interface MealAnalysisResult {
   fat: number;
   carbs: number;
   message: string;
+  recognizedFoods: string[];
+  unrecognizedItems: string[];
   avoidFoods: string[];
   wholeFoodTip: string;
   ketoneNote: string;
+  dataQualityNote: string;
 }
