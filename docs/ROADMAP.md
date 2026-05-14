@@ -53,13 +53,25 @@ Future meal-example upgrades are tracked in `docs/MEAL_EXAMPLE_IDEAS.md`.
 
 ## MVP 3: Tracker
 
-Planned:
+In progress:
 
 - Basic food tracker
 - Daily macro summary
+
+Completed first:
+
+- Save analyzed meals locally on the phone
+- Show today's saved meal count
+- Show today's calories, protein, fat, and carbs
+- Show recent saved meals
+- Clear local meal history
+
+Planned next:
+
 - Weight tracker
 - Fasting timer
 - Ketone education notes
+- Weekly and monthly performance cards
 
 ## MVP 4: AI Coach Lite
 

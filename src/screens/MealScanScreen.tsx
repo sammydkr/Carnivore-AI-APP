@@ -11,8 +11,9 @@ import {
 
 import { createMockMealAnalysis } from '../shared/mealAnalysis';
 import { shortDisclaimer } from '../shared/disclaimer';
+import { createSavedMealEntry } from '../shared/mealHistory';
 import { tokens } from '../shared/tokens';
-import type { MealAnalysisResult } from '../shared/types';
+import type { MealAnalysisResult, SavedMealEntry } from '../shared/types';
 
 const mealExamples = [
   {
@@ -33,11 +34,17 @@ const mealExamples = [
   },
 ];
 
-export function MealScanScreen() {
+interface MealScanScreenProps {
+  onSaveMeal: (entry: SavedMealEntry) => Promise<void>;
+  onViewTracker: () => void;
+}
+
+export function MealScanScreen({ onSaveMeal, onViewTracker }: MealScanScreenProps) {
   const [imageUri, setImageUri] = React.useState<string | null>(null);
   const [mealDetails, setMealDetails] = React.useState('400g steak, 20g butter, 8 eggs');
   const [analysis, setAnalysis] = React.useState<MealAnalysisResult | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const [saveMessage, setSaveMessage] = React.useState<string | null>(null);
 
   async function pickImage() {
     setError(null);
@@ -56,6 +63,7 @@ export function MealScanScreen() {
 
     if (!result.canceled) {
       setImageUri(result.assets[0].uri);
+      setSaveMessage(null);
     }
   }
 
@@ -76,6 +84,7 @@ export function MealScanScreen() {
 
     if (!result.canceled) {
       setImageUri(result.assets[0].uri);
+      setSaveMessage(null);
     }
   }
 
@@ -89,12 +98,14 @@ export function MealScanScreen() {
 
     setError(null);
     setAnalysis(createMockMealAnalysis(trimmedDetails));
+    setSaveMessage(null);
   }
 
   function updateMealDetails(nextDetails: string) {
     setMealDetails(nextDetails);
     setAnalysis(null);
     setError(null);
+    setSaveMessage(null);
   }
 
   function selectMealExample(details: string) {
@@ -103,6 +114,7 @@ export function MealScanScreen() {
 
   function clearPhoto() {
     setImageUri(null);
+    setSaveMessage(null);
   }
 
   function resetScan() {
@@ -110,6 +122,28 @@ export function MealScanScreen() {
     setMealDetails('');
     setAnalysis(null);
     setError(null);
+    setSaveMessage(null);
+  }
+
+  async function saveMeal() {
+    if (!analysis) {
+      return;
+    }
+
+    try {
+      await onSaveMeal(
+        createSavedMealEntry({
+          analysis,
+          imageUri,
+          mealDetails: mealDetails.trim(),
+        }),
+      );
+      setError(null);
+      setSaveMessage('Saved to Tracker.');
+    } catch {
+      setError('Meal could not be saved. Please try again.');
+      setSaveMessage(null);
+    }
   }
 
   const hasMealDetails = mealDetails.trim().length > 0;
@@ -223,6 +257,30 @@ export function MealScanScreen() {
       ) : null}
 
       {analysis ? <AnalysisCard analysis={analysis} /> : null}
+
+      {analysis ? (
+        <View style={styles.saveActions}>
+          <Pressable
+            accessibilityLabel="Save meal to tracker"
+            accessibilityRole="button"
+            onPress={saveMeal}
+            style={styles.primaryButton}
+          >
+            <Text style={styles.primaryButtonText}>Save to Tracker</Text>
+          </Pressable>
+          <Pressable
+            accessibilityLabel="View tracker"
+            accessibilityRole="button"
+            onPress={onViewTracker}
+            style={styles.secondaryFullButton}
+          >
+            <Text style={styles.secondaryButtonText}>View Tracker</Text>
+          </Pressable>
+          {saveMessage ? (
+            <Text style={styles.successText}>{saveMessage}</Text>
+          ) : null}
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -515,6 +573,23 @@ const styles = StyleSheet.create({
     fontSize: tokens.typography.caption,
     lineHeight: 18,
     marginTop: tokens.spacing.sm,
+    textAlign: 'center',
+  },
+  saveActions: {
+    gap: tokens.spacing.sm,
+    marginTop: tokens.spacing.lg,
+  },
+  secondaryFullButton: {
+    backgroundColor: tokens.colors.surfaceMuted,
+    borderColor: tokens.colors.border,
+    borderRadius: tokens.radius.lg,
+    borderWidth: 1,
+    padding: tokens.spacing.md,
+  },
+  successText: {
+    color: tokens.colors.success,
+    fontSize: tokens.typography.body,
+    fontWeight: '800',
     textAlign: 'center',
   },
   analysisCard: {

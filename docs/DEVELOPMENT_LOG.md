@@ -248,3 +248,23 @@ Improved the meal analysis so the app is more honest about nutrition calculation
 ### Product Decision
 
 ChatGPT can help parse meal text and explain results, but the final calorie and macro numbers should come from verified nutrition data. This keeps the app safer, more trustworthy, and easier to approve later.
+
+## 2026-05-14: MVP 3 Local Meal Tracker
+
+### What We Added
+
+Started MVP 3 by turning meal analysis into saved local tracker history.
+
+The app now supports:
+
+- Save analyzed meals to local phone storage
+- Keep up to 50 recent saved meals
+- Show today's saved meal count
+- Show today's calories, protein, fat, and carbs
+- Show a simple average ketovore score
+- Show recent saved meal cards
+- Clear local meal history
+
+### Technical Note
+
+Added `@react-native-async-storage/async-storage` for simple local storage during the Expo MVP phase. This is not a backend or account system yet. Later, user accounts and cloud sync can move this history to a real database.

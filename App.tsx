@@ -15,8 +15,13 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { MealScanScreen } from './src/screens/MealScanScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { TrackerScreen } from './src/screens/TrackerScreen';
+import {
+  clearMealHistory,
+  loadMealHistory,
+  saveMealHistory,
+} from './src/shared/mealHistory';
 import { tokens } from './src/shared/tokens';
-import type { Screen } from './src/shared/types';
+import type { SavedMealEntry, Screen } from './src/shared/types';
 
 const tabs: { key: Screen; label: string }[] = [
   { key: 'home', label: 'Home' },
@@ -28,6 +33,32 @@ const tabs: { key: Screen; label: string }[] = [
 
 export default function App() {
   const [screen, setScreen] = React.useState<Screen>('home');
+  const [savedMeals, setSavedMeals] = React.useState<SavedMealEntry[]>([]);
+  const [historyError, setHistoryError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    loadMealHistory()
+      .then((meals) => {
+        setSavedMeals(meals);
+        setHistoryError(null);
+      })
+      .catch(() => {
+        setHistoryError('Saved meal history could not be loaded.');
+      });
+  }, []);
+
+  async function handleSaveMeal(entry: SavedMealEntry) {
+    const nextMeals = [entry, ...savedMeals].slice(0, 50);
+    setSavedMeals(nextMeals);
+    await saveMealHistory(nextMeals);
+    setHistoryError(null);
+  }
+
+  async function handleClearMealHistory() {
+    setSavedMeals([]);
+    await clearMealHistory();
+    setHistoryError(null);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -40,8 +71,20 @@ export default function App() {
         keyboardShouldPersistTaps="handled"
       >
         {screen === 'home' && <HomeScreen onStartScan={() => setScreen('scan')} />}
-        {screen === 'scan' && <MealScanScreen />}
-        {screen === 'tracker' && <TrackerScreen />}
+        {screen === 'scan' && (
+          <MealScanScreen
+            onSaveMeal={handleSaveMeal}
+            onViewTracker={() => setScreen('tracker')}
+          />
+        )}
+        {screen === 'tracker' && (
+          <TrackerScreen
+            historyError={historyError}
+            meals={savedMeals}
+            onClearHistory={handleClearMealHistory}
+            onStartScan={() => setScreen('scan')}
+          />
+        )}
         {screen === 'coach' && <CoachScreen />}
         {screen === 'settings' && <SettingsScreen />}
       </ScrollView>

@@ -17,3 +17,11 @@ export interface MealAnalysisResult {
   ketoneNote: string;
   dataQualityNote: string;
 }
+
+export interface SavedMealEntry {
+  id: string;
+  createdAt: string;
+  imageUri: string | null;
+  mealDetails: string;
+  analysis: MealAnalysisResult;
+}
