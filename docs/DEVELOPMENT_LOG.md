@@ -202,3 +202,19 @@ Created `docs/MEAL_EXAMPLE_IDEAS.md` to capture future meal example ideas:
 - Favorite meals
 - Cultural and restaurant-style examples
 - Shopping-style examples
+
+## 2026-05-14: Reset And Edit Scan Flow
+
+### What We Did
+
+Improved the Scan screen so users can change their mind without getting stuck.
+
+The scan flow now supports:
+
+- Simple scan status for photo, meal details, and analysis
+- Clear Photo button
+- Start New Scan button
+- Editing meal details after analysis
+- Clearing old analysis when meal details change
+- Analyze Again button label after a result exists
+- Helper text explaining that users can edit and analyze again

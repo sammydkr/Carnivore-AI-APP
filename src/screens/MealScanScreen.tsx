@@ -91,11 +91,28 @@ export function MealScanScreen() {
     setAnalysis(createMockMealAnalysis(trimmedDetails));
   }
 
-  function selectMealExample(details: string) {
-    setMealDetails(details);
+  function updateMealDetails(nextDetails: string) {
+    setMealDetails(nextDetails);
     setAnalysis(null);
     setError(null);
   }
+
+  function selectMealExample(details: string) {
+    updateMealDetails(details);
+  }
+
+  function clearPhoto() {
+    setImageUri(null);
+  }
+
+  function resetScan() {
+    setImageUri(null);
+    setMealDetails('');
+    setAnalysis(null);
+    setError(null);
+  }
+
+  const hasMealDetails = mealDetails.trim().length > 0;
 
   return (
     <View style={styles.card}>
@@ -113,6 +130,12 @@ export function MealScanScreen() {
           <Text style={styles.photoPlaceholder}>No meal photo yet</Text>
         )}
       </View>
+
+      <ScanStatus
+        hasAnalysis={Boolean(analysis)}
+        hasMealDetails={hasMealDetails}
+        hasPhoto={Boolean(imageUri)}
+      />
 
       <View style={styles.buttonRow}>
         <Pressable
@@ -133,6 +156,17 @@ export function MealScanScreen() {
         </Pressable>
       </View>
 
+      {imageUri ? (
+        <Pressable
+          accessibilityLabel="Clear selected meal photo"
+          accessibilityRole="button"
+          onPress={clearPhoto}
+          style={styles.clearButton}
+        >
+          <Text style={styles.clearButtonText}>Clear Photo</Text>
+        </Pressable>
+      ) : null}
+
       <Text style={styles.inputLabel}>Quick examples</Text>
       <View style={styles.exampleGrid}>
         {mealExamples.map((example) => (
@@ -152,7 +186,7 @@ export function MealScanScreen() {
       <TextInput
         accessibilityLabel="Meal details"
         multiline
-        onChangeText={setMealDetails}
+        onChangeText={updateMealDetails}
         placeholder="Example: 400g meat, 20g butter, 8 large eggs"
         placeholderTextColor={tokens.colors.mutedText}
         style={styles.input}
@@ -167,10 +201,55 @@ export function MealScanScreen() {
         onPress={analyzeMeal}
         style={styles.primaryButton}
       >
-        <Text style={styles.primaryButtonText}>Analyze Meal</Text>
+        <Text style={styles.primaryButtonText}>
+          {analysis ? 'Analyze Again' : 'Analyze Meal'}
+        </Text>
       </Pressable>
 
+      <Pressable
+        accessibilityLabel="Start a new meal scan"
+        accessibilityRole="button"
+        onPress={resetScan}
+        style={styles.resetButton}
+      >
+        <Text style={styles.resetButtonText}>Start New Scan</Text>
+      </Pressable>
+
+      {analysis ? (
+        <Text style={styles.editHint}>
+          Need to change something? Edit the meal details above and analyze
+          again.
+        </Text>
+      ) : null}
+
       {analysis ? <AnalysisCard analysis={analysis} /> : null}
+    </View>
+  );
+}
+
+function ScanStatus({
+  hasPhoto,
+  hasMealDetails,
+  hasAnalysis,
+}: {
+  hasPhoto: boolean;
+  hasMealDetails: boolean;
+  hasAnalysis: boolean;
+}) {
+  return (
+    <View style={styles.statusCard}>
+      <StatusPill label="Photo" value={hasPhoto ? 'Added' : 'Not added'} />
+      <StatusPill label="Details" value={hasMealDetails ? 'Added' : 'Missing'} />
+      <StatusPill label="Analysis" value={hasAnalysis ? 'Ready' : 'Not analyzed'} />
+    </View>
+  );
+}
+
+function StatusPill({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.statusPill}>
+      <Text style={styles.statusLabel}>{label}</Text>
+      <Text style={styles.statusValue}>{value}</Text>
     </View>
   );
 }
@@ -290,6 +369,35 @@ const styles = StyleSheet.create({
     gap: tokens.spacing.sm,
     marginTop: tokens.spacing.md,
   },
+  statusCard: {
+    backgroundColor: tokens.colors.surfaceMuted,
+    borderColor: tokens.colors.border,
+    borderRadius: tokens.radius.lg,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: tokens.spacing.sm,
+    marginTop: tokens.spacing.md,
+    padding: tokens.spacing.sm,
+  },
+  statusPill: {
+    backgroundColor: tokens.colors.surface,
+    borderRadius: tokens.radius.md,
+    flex: 1,
+    padding: tokens.spacing.sm,
+  },
+  statusLabel: {
+    color: tokens.colors.mutedText,
+    fontSize: tokens.typography.caption,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  statusValue: {
+    color: tokens.colors.primaryDark,
+    fontSize: tokens.typography.caption,
+    fontWeight: '800',
+    marginTop: tokens.spacing.xs,
+    textAlign: 'center',
+  },
   secondaryButton: {
     backgroundColor: tokens.colors.surfaceMuted,
     borderColor: tokens.colors.border,
@@ -299,6 +407,18 @@ const styles = StyleSheet.create({
     padding: tokens.spacing.md,
   },
   secondaryButtonText: {
+    color: tokens.colors.primary,
+    fontSize: tokens.typography.body,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  clearButton: {
+    alignSelf: 'center',
+    marginTop: tokens.spacing.sm,
+    paddingHorizontal: tokens.spacing.md,
+    paddingVertical: tokens.spacing.sm,
+  },
+  clearButtonText: {
     color: tokens.colors.primary,
     fontSize: tokens.typography.body,
     fontWeight: '800',
@@ -358,6 +478,26 @@ const styles = StyleSheet.create({
     color: tokens.colors.surface,
     fontSize: tokens.typography.lead,
     fontWeight: '800',
+    textAlign: 'center',
+  },
+  resetButton: {
+    borderColor: tokens.colors.border,
+    borderRadius: tokens.radius.lg,
+    borderWidth: 1,
+    marginTop: tokens.spacing.sm,
+    padding: tokens.spacing.md,
+  },
+  resetButtonText: {
+    color: tokens.colors.primary,
+    fontSize: tokens.typography.body,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  editHint: {
+    color: tokens.colors.mutedText,
+    fontSize: tokens.typography.caption,
+    lineHeight: 18,
+    marginTop: tokens.spacing.sm,
     textAlign: 'center',
   },
   analysisCard: {
