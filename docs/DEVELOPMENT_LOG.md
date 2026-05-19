@@ -303,3 +303,36 @@ Improved the Home screen scan action:
 ### Product Reason
 
 This makes the main action faster and simpler. The fewer taps it takes to scan a meal, the more likely users are to use the app every day.
+
+## 2026-05-18: Anti-Aging Tracker Planning
+
+### What We Decided
+
+Before backend and database work, we planned a local Anti-Aging Daily Check-In feature.
+
+The feature will let users track:
+
+- Brain fog
+- Joint pain
+- Skin issues
+- Sleep quality
+- Libido / mood
+- 1 hour walk
+- Sunlight at least 1 hour
+- Workout or walk 5K
+- Muscle performance
+- Vitamin D3 with K and magnesium daily
+- Iodine daily
+- Water and salt daily
+- Drink 2L water daily
+- Minerals and vitamins daily
+
+### Product Direction
+
+This should start as a local wellness tracker with a simple `Anti-Aging score: 82/100 today` style result.
+
+Later, after backend and database setup, the app can compare these check-ins with meals, fasting, hydration, minerals, sunlight, and workouts.
+
+### Safety Note
+
+This feature must use safe wellness language only. It should not diagnose, treat, cure, prevent disease, or claim to reverse aging.

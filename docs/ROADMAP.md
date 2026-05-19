@@ -70,10 +70,22 @@ Completed first:
 
 Planned next:
 
+- Anti-aging daily check-in
 - Weight tracker
 - Fasting timer
 - Ketone education notes
 - Weekly and monthly performance cards
+
+## MVP 3.5: Anti-Aging Daily Check-In
+
+Planned before backend:
+
+- Daily symptom checklist
+- Daily lifestyle checklist
+- Optional comments for each item
+- Simple local Anti-Aging score out of 100
+- Safe wellness wording only
+- Future correlation with meals, fasting, hydration, minerals, sunlight, walking, and workouts
 
 ## MVP 4: AI Coach Lite
 
