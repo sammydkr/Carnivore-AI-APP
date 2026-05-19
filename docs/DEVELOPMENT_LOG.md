@@ -336,3 +336,35 @@ Later, after backend and database setup, the app can compare these check-ins wit
 ### Safety Note
 
 This feature must use safe wellness language only. It should not diagnose, treat, cure, prevent disease, or claim to reverse aging.
+
+## 2026-05-18: Core Features And Backend Roadmap
+
+### What We Decided
+
+Reviewed the backend Skill.md and defined the 5 strongest features for Ketovore AI:
+
+- Meal Scan and Ketovore Score
+- Daily Status and Tracker
+- Anti-Aging Daily Check-In
+- AI Coach Lite
+- Premium Subscription
+
+### Backend Direction
+
+The planned backend stack follows the Skill.md:
+
+- Node.js
+- TypeScript
+- NestJS
+- PostgreSQL
+- Prisma
+- REST-first API
+
+### Documents Added
+
+- `docs/CORE_FEATURES.md`
+- `docs/BACKEND_DATABASE_ROADMAP.md`
+
+### Product Decision
+
+Keep the first backend small. It should support user profiles, meal history, daily check-ins, AI coach requests, and subscription status before larger ecosystem features.

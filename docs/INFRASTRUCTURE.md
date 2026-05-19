@@ -48,6 +48,21 @@ The app creates a local mock estimate:
 
 ## Future Backend / AI Phase
 
+The backend and database roadmap is defined in:
+
+```text
+docs/BACKEND_DATABASE_ROADMAP.md
+```
+
+Following the project Skill.md, the planned backend stack is:
+
+- Node.js
+- TypeScript
+- NestJS
+- PostgreSQL
+- Prisma
+- REST-first API
+
 When the mock flow is working well, add a secure server-side function or backend.
 
 Future backend responsibilities:

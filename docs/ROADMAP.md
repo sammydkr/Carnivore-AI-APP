@@ -4,13 +4,13 @@
 
 Build the app gradually. Keep the first version simple, working on a phone, and easy to understand.
 
-The current priority is:
+The 5 strongest core features are defined in `docs/CORE_FEATURES.md`:
 
-- Use the Ketovore AI logo
-- Build a clean white/blue home screen
-- Add a Scan Your Meal flow
-- Let users add a meal photo and type what they ate
-- Show a mock keto/carnivore-friendly analysis
+- Meal Scan and Ketovore Score
+- Daily Status and Tracker
+- Anti-Aging Daily Check-In
+- AI Coach Lite
+- Premium Subscription
 
 ## MVP 0: Planning And Setup
 
@@ -107,6 +107,19 @@ Planned:
 - App screenshots
 - TestFlight build
 - App Store health and privacy review preparation
+
+## Backend And Database Phase
+
+Planned after the local MVP features are clear:
+
+- Node.js + TypeScript backend
+- NestJS modular API
+- PostgreSQL database
+- Prisma ORM
+- REST-first API
+- Shared contracts later
+
+Backend roadmap is defined in `docs/BACKEND_DATABASE_ROADMAP.md`.
 
 ## Later Ecosystem Features
 
