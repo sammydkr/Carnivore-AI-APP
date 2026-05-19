@@ -63,6 +63,23 @@ Following the project Skill.md, the planned backend stack is:
 - Prisma
 - REST-first API
 
+## Backend Foundation Started
+
+The first backend app now lives in:
+
+```text
+apps/api
+```
+
+Current backend scope:
+
+- NestJS app bootstrap
+- TypeScript config
+- `.env.example`
+- `GET /api/v1/health`
+
+The health endpoint verifies that the API server can start and respond before we add database logic.
+
 When the mock flow is working well, add a secure server-side function or backend.
 
 Future backend responsibilities:

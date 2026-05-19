@@ -368,3 +368,57 @@ The planned backend stack follows the Skill.md:
 ### Product Decision
 
 Keep the first backend small. It should support user profiles, meal history, daily check-ins, AI coach requests, and subscription status before larger ecosystem features.
+
+## 2026-05-18: Backend Foundation Started
+
+### What We Built
+
+Created the first backend app in:
+
+```text
+apps/api
+```
+
+The backend now includes:
+
+- NestJS
+- TypeScript
+- API bootstrap file
+- App module
+- Health module
+- Health controller
+- Health service
+- Typed health response DTO
+- `.env.example`
+- Backend README
+
+### Current Endpoint
+
+```text
+GET /api/v1/health
+```
+
+Expected response:
+
+```json
+{
+  "service": "ketovore-api",
+  "status": "ok",
+  "timestamp": "2026-05-18T00:00:00.000Z"
+}
+```
+
+### Verification
+
+The backend TypeScript build passed.
+
+The health endpoint was started locally and returned:
+
+```text
+service: ketovore-api
+status: ok
+```
+
+### Next Step
+
+Add Prisma and the first PostgreSQL schema for users, profiles, meals, daily check-ins, AI interactions, and subscriptions.

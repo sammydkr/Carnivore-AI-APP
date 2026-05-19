@@ -4,7 +4,7 @@
 
 Ketovore AI is an early-stage mobile wellness app for people following ketogenic, carnivore, ketovore, and low-carb eating styles.
 
-The first version is intentionally simple. The app starts with a meal photo/manual meal-details flow, then shows an estimated keto/carnivore-friendly analysis. Real AI, backend storage, subscriptions, community, and restaurant features will come later.
+The first version is intentionally simple. The app starts with a meal photo/manual meal-details flow, then shows an estimated keto/carnivore-friendly analysis. Backend work has now started with a small NestJS API foundation.
 
 ## Current MVP Focus
 
@@ -15,12 +15,13 @@ The first version is intentionally simple. The app starts with a meal photo/manu
 - Mock macro estimate and keto/carnivore verdict
 - Tracker, AI Coach, and Settings placeholder screens
 - Health disclaimer and safety language
+- Backend health check endpoint
 
 ## Planned Later
 
 - Real OpenAI meal image and text analysis
 - User registration and login
-- Saved meal history
+- Cloud saved meal history
 - Fasting timer
 - Basic AI coach
 - Health disclaimer
@@ -45,8 +46,9 @@ The first version is intentionally simple. The app starts with a meal photo/manu
 - Language: TypeScript
 - Photo picker: Expo ImagePicker
 - Current data: local mock data only
-- Future AI: OpenAI API through a server-side function
-- Future database/auth: Supabase or Node/PostgreSQL backend
+- Backend: Node.js, NestJS, TypeScript
+- Future AI: OpenAI API through the backend
+- Future database/auth: PostgreSQL and Prisma
 - Future payments: RevenueCat
 - Future app builds: Expo EAS Build
 - Repository: GitHub
@@ -75,6 +77,39 @@ Run Expo project check:
 
 ```powershell
 npx.cmd expo-doctor
+```
+
+## Backend Development
+
+The backend lives in:
+
+```text
+apps/api
+```
+
+Install backend dependencies:
+
+```powershell
+cd apps/api
+npm.cmd install
+```
+
+Build the backend:
+
+```powershell
+npm.cmd run build
+```
+
+Start the backend:
+
+```powershell
+npm.cmd run start:dev
+```
+
+Health check:
+
+```text
+http://localhost:3000/api/v1/health
 ```
 
 ## Health And Safety Position

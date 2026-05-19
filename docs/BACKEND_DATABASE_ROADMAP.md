@@ -257,15 +257,48 @@ model Subscription {
 
 ## Build Order
 
-1. Create backend folder and install NestJS, Prisma, PostgreSQL tooling.
-2. Create health check endpoint.
-3. Create Prisma schema.
+1. Create backend folder and install NestJS foundation. Completed.
+2. Create health check endpoint. Completed.
+3. Create Prisma schema. Next.
 4. Add auth module.
 5. Add profiles module.
 6. Add meals module.
 7. Add daily check-ins module.
 8. Add AI Coach module later.
 9. Add subscriptions later.
+
+## Backend Foundation Completed
+
+The first API foundation now exists in:
+
+```text
+apps/api
+```
+
+Current endpoint:
+
+```text
+GET /api/v1/health
+```
+
+Expected response:
+
+```json
+{
+  "service": "ketovore-api",
+  "status": "ok",
+  "timestamp": "2026-05-18T00:00:00.000Z"
+}
+```
+
+Current backend scripts:
+
+```text
+npm run build
+npm run start
+npm run start:dev
+npm run typecheck
+```
 
 ## What We Should Not Build Yet
 
