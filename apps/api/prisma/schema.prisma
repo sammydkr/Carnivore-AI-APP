@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  passwordHash  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  profile       Profile?
+  meals         Meal[]
+  checkIns      DailyCheckIn[]
+  aiInteractions AiInteraction[]
+  subscription  Subscription?
+}
+
+model Profile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  displayName String?
+  weight      Float?
+  goal        String   @default("fat_loss")
+  dietStyle   String   @default("ketovore")
+  calorieGoal Int      @default(1800)
+  proteinGoal Int      @default(170)
+  carbLimit   Int      @default(20)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Meal {
+  id                String   @id @default(uuid())
+  userId            String
+  mealDetails       String
+  imageUrl          String?
+  calories          Int
+  protein           Int
+  fat               Int
+  carbs             Int
+  score             Int
+  recognizedFoods   Json
+  unrecognizedFoods Json
+  createdAt         DateTime @default(now())
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model DailyCheckIn {
+  id          String   @id @default(uuid())
+  userId      String
+  date        DateTime @db.Date
+  symptoms    Json
+  habits      Json
+  comments    Json
+  score       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId, date])
+}
+
+model AiInteraction {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  input     Json
+  output    Json
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model Subscription {
+  id                 String    @id @default(uuid())
+  userId             String    @unique
+  status             String    @default("inactive")
+  plan               String    @default("free")
+  trialEndsAt        DateTime?
+  currentPeriodEnd   DateTime?
+  provider           String?
+  providerUserId     String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
