@@ -7,7 +7,7 @@ import { RefreshDto } from './dto/refresh.dto';
 import { TokensResponseDto } from './dto/tokens-response.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RefreshJwtGuard } from './guards/refresh-jwt.guard';
-import { RefreshJwtPayload } from './strategies/refresh-jwt.strategy';
+import { RefreshJwtUser } from './strategies/refresh-jwt.strategy';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -37,7 +37,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Refresh access token using refresh token' })
   @ApiResponse({ status: 200, type: TokensResponseDto, description: 'New tokens returned' })
   @ApiResponse({ status: 401, description: 'Invalid or expired refresh token' })
-  async refresh(@Req() req: Request & { user: RefreshJwtPayload }): Promise<TokensResponseDto> {
+  async refresh(@Req() req: Request & { user: RefreshJwtUser }): Promise<TokensResponseDto> {
     const { id, email, tokenId } = req.user;
     return this.authService.refresh(id, email, tokenId);
   }

@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import type { Request } from 'express';
 
 export interface RefreshJwtPayload {
   sub: string;
@@ -10,6 +11,13 @@ export interface RefreshJwtPayload {
   tokenId: string;
   iat?: number;
   exp?: number;
+}
+
+export interface RefreshJwtUser {
+  id: string;
+  email: string;
+  tokenId: string;
+  refreshToken: string;
 }
 
 interface RequestWithBody extends Request {
